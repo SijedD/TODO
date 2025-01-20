@@ -9,13 +9,30 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+
+export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+
 export interface Users {
-  email: string;
   id: Generated<string>;
-  name: string | null;
+  login: string;
   password: string | null;
+  name: string | null;
+  email: string;
+}
+
+export interface Objectives {
+  id: Generated<string>;
+  title: string;
+  description: string | null;
+  creatorId: string;
+  notifyAt: Timestamp | null;
+  createdAt: Generated<Timestamp>;
+  updatedAt: Generated<Timestamp>;
+  isCompleted: Generated<boolean>;
 }
 
 export interface DB {
+  objectives: Objectives;
   users: Users;
 }
