@@ -2,7 +2,7 @@ import {FastifyReply, FastifyRequest} from "fastify";
 import {objectiveSchema} from "./schemas/objective.schema";
 import * as objectiveRepository from "./repository.objective";
 import {sqlCon} from "../../common/config/kysely-config";
-import {findById} from "./repository.objective";
+import {findById, validateUUID} from "./repository.objective";
 
 
 export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep: FastifyReply) {
@@ -61,4 +61,22 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
     const result = await objectiveRepository.update(sqlCon, objectiveId, updatedObjective);
 
     return rep.code(200).send(result);
+}
+
+
+export async function read(req: FastifyRequest<{ Params: { id: string }, Body: objectiveSchema }>, rep: FastifyReply) {
+
+    const objectiveId = req.params.id;
+
+    if (!validateUUID(objectiveId)) {
+        return rep.code(400).send({ error: 'Invalid UUID format' });
+    }
+
+    const existingObjective = await objectiveRepository.findById(sqlCon, objectiveId);
+    if (!existingObjective) {
+        return rep.code(404).send({ error: "Objective not found" });
+    }
+
+
+    return rep.code(200).send(existingObjective);
 }
