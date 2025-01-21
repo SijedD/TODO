@@ -41,6 +41,8 @@ async function app() {
         }
         logger.info(`[APP] Server listening on ${address}`);
     });
+
+
 }
 
 void app();
