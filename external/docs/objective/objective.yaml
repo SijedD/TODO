@@ -1,0 +1,224 @@
+/to-do:
+  post:
+    tags:
+      - Tasks
+    summary: Create a new task
+    security:
+      - bearer: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [title, description, notifyAt]
+            properties:
+              title:
+                type: string
+                description: Task title
+              description:
+                type: string
+                description: Task description
+              notifyAt:
+                type: string
+                format: date-time
+                description: Notification time
+              isCompleted:
+                type: boolean
+                description: Task completion status
+    responses:
+      200:
+        description: Task successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                notifyAt:
+                  type: string
+                  format: date-time
+                isCompleted:
+                  type: boolean
+                creatorId:
+                  type: string
+      401:
+        description: Unauthorized
+      500:
+        description: Internal server error
+
+  get:
+    tags:
+      - Tasks
+    summary: Get a list of tasks
+    security:
+      - bearer: []
+    parameters:
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search by task title
+      - in: query
+        name: sortBy
+        schema:
+          type: string
+          enum: [title, createdAt, notifyAt]
+        description: Field to sort by
+      - in: query
+        name: order
+        schema:
+          type: string
+          enum: [asc, desc]
+        description: Sorting order
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+        description: Number of tasks per page
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          default: 0
+        description: Pagination offset
+      - in: query
+        name: is_completed
+        schema:
+          type: boolean
+        description: Filter by completion status
+    responses:
+      200:
+        description: List of tasks
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  notifyAt:
+                    type: string
+                    format: date-time
+                  isCompleted:
+                    type: boolean
+                  createdAt:
+                    type: string
+                    format: date-time
+      500:
+        description: Internal server error
+
+/to-do/{id}:
+  get:
+    tags:
+      - Tasks
+    summary: Get a specific task by ID
+    security:
+      - bearer: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: Task ID
+    responses:
+      200:
+        description: Task details
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                notifyAt:
+                  type: string
+                  format: date-time
+                isCompleted:
+                  type: boolean
+                createdAt:
+                  type: string
+                  format: date-time
+      404:
+        description: Task not found
+      500:
+        description: Internal server error
+
+  patch:
+    tags:
+      - Tasks
+    summary: Update a task by ID
+    security:
+      - bearer: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: Task ID
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                description: Updated task title
+              description:
+                type: string
+                description: Updated task description
+              notifyAt:
+                type: string
+                format: date-time
+                description: Updated notification time
+              isCompleted:
+                type: boolean
+                description: Updated completion status
+    responses:
+      200:
+        description: Task successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                notifyAt:
+                  type: string
+                  format: date-time
+                isCompleted:
+                  type: boolean
+                updatedAt:
+                  type: string
+                  format: date-time
+      404:
+        description: Task not found
+      403:
+        description: Forbidden (not the creator)
+      500:
+        description: Internal server error

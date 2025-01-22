@@ -1,0 +1,114 @@
+/user/login:
+  post:
+    tags:
+      - User
+    summary: Sign in
+    security: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, password]
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    position:
+                      type: string
+                    email:
+                      type: string
+                    organization:
+                      type: string
+                    role:
+                      type: string
+                    is_archive:
+                      type: boolean
+                access_token:
+                  type: string
+                refresh_token:
+                  type: string
+      404:
+        $ref: "#/definitions/404"
+      422:
+        $ref: "#/definitions/422"
+
+/user/sign-up:
+  post:
+    tags:
+      - User
+    summary: Sign up
+    security: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - login
+              - name
+              - email
+              - password
+            properties:
+              login:
+                type: string
+                description: Unique login for the user.
+              name:
+                type: string
+                description: Full name of the user.
+              email:
+                type: string
+                format: email
+                description: User's email address.
+              password:
+                type: string
+                format: password
+                description: User's password.
+    responses:
+      200:
+        description: User successfully created.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID of the created user.
+                accessToken:
+                  type: string
+                  description: JWT token for the user.
+      409:
+        description: Conflict - email already exists.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Type of the error.
+                property:
+                  type: string
+                  description: Conflicting property.
+      500:
+        description: Internal server error.

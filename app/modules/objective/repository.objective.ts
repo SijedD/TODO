@@ -22,3 +22,39 @@ export function validateUUID(uuid: string): boolean {
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return uuidRegex.test(uuid);
 }
+
+export async function findAllTasks(
+    db: Kysely<DB> | Transaction<DB>,
+    options: {
+        search?: string;
+        sortBy: string;
+        order: string;
+        limit: number;
+        offset: number;
+        is_completed?: boolean;
+    }
+) {
+    let query = db
+        .selectFrom('objectives')
+        .selectAll();
+
+
+    if (options.search) {
+        query = query.where('title', 'ilike', `%${options.search}%`);
+    }
+
+
+    if (options.is_completed !== undefined) {
+        query = query.where('is_completed', '=', options.is_completed);
+    }
+
+
+    query = query.orderBy(options.sortBy, options.order);
+
+
+    query = query.limit(options.limit).offset(options.offset);
+
+
+    const tasks = await query.execute();
+    return tasks;
+}

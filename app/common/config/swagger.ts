@@ -5,6 +5,7 @@ import { OpenAPIV3 } from "openapi-types";
 import SwaggerJSDoc from "swagger-jsdoc";
 import { HandlingErrorType } from "../enum/error-types";
 
+
 const errorTypes = Object.values(HandlingErrorType)
     .map((i) => `<li>${i}</li>`)
     .join("");
@@ -25,6 +26,7 @@ const swaggerDocument = SwaggerJSDoc({
         security: [{ bearer: [] }]
     },
     apis: [`${process.cwd()}/external/docs/**/*.yaml`]
+
 });
 
 export const swaggerOption: FastifyStaticSwaggerOptions = {

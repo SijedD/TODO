@@ -6,4 +6,6 @@ export const objectiveRouter = async (app: FastifyInstance) =>{
     app.post("/to-do",{schema:objectiveFSchema, config: { isPublic: true } }, objectiveController.create);
     app.patch("/to-do/:id",{schema:objectiveFSchema, config: { isPublic: true } }, objectiveController.update);
     app.get('/to-do/:id', objectiveController.read);
+    app.get('/to-do', objectiveController.list);
+
 }

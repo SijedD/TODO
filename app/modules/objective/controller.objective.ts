@@ -2,7 +2,7 @@ import {FastifyReply, FastifyRequest} from "fastify";
 import {objectiveSchema} from "./schemas/objective.schema";
 import * as objectiveRepository from "./repository.objective";
 import {sqlCon} from "../../common/config/kysely-config";
-import {findById, validateUUID} from "./repository.objective";
+import {findAllTasks, findById, validateUUID} from "./repository.objective";
 
 
 export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep: FastifyReply) {
@@ -79,4 +79,49 @@ export async function read(req: FastifyRequest<{ Params: { id: string }, Body: o
 
 
     return rep.code(200).send(existingObjective);
+}
+
+
+export async function list(req: FastifyRequest<{ Querystring: { search?: string;
+    sortBy?: 'title' | 'createdAt' | 'notifyAt';
+    order?: 'asc' | 'desc';
+    limit?: number;
+    offset?: number;
+    is_completed?: boolean; }; }>, rep: FastifyReply)
+{
+    try {
+        const {
+            search,
+            sortBy = 'createdAt',
+            order = 'asc',
+            limit = 10,
+            offset = 0,
+            is_completed,
+        } = req.query;
+
+        
+        const validSortFields = ['title', 'createdAt', 'notifyAt'];
+        if (!validSortFields.includes(sortBy)) {
+            return rep.code(400).send({ error: 'Invalid sortBy field' });
+        }
+
+        if (!['asc', 'desc'].includes(order)) {
+            return rep.code(400).send({ error: 'Invalid order value' });
+        }
+
+        // Выполняем запрос к базе данных с фильтрацией, сортировкой и пагинацией
+        const tasks = await objectiveRepository.findAllTasks(sqlCon, {
+            search,
+            sortBy,
+            order,
+            limit,
+            offset,
+            is_completed,
+        });
+
+        return rep.code(200).send(tasks);
+    } catch (error) {
+        console.error('Error retrieving tasks:', error);
+        return rep.code(500).send({ error: 'Internal server error' });
+    }
 }
