@@ -14,7 +14,7 @@ export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep
         return rep.code(401).send({ error: "Unauthorized: Creator ID not found" });
     }
 
-    // Создаём задачу
+    try {
     const objective = {
         title: req.body.title,
         description: req.body.description,
@@ -23,16 +23,17 @@ export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep
         isCompleted: req.body.isCompleted,
     };
 
-    // Вставляем задачу в базу данных
     const insertedObjective = await objectiveRepository.insert(sqlCon, objective);
-
     return rep.code(200).send(insertedObjective);
+
+    } catch (error) {
+        return rep.code(500).send({error: 'Internal server error'});
+    }
 }
 
 
 export async function update(req: FastifyRequest<{ Params: { id: string }, Body: objectiveSchema }>, rep: FastifyReply) {
 
-    // Проверка токена и получение данных пользователя
     req.user = await req.jwtVerify();
     const creatorId = req.user?.id;
 
@@ -50,7 +51,7 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
     if (existingObjective.creatorId !== creatorId) {
         return rep.code(403).send({ error: "Forbidden: You are not the creator of this objective" });
     }
-
+    try {
     const updatedObjective = {
         title: req.body.title || existingObjective.title,
         description: req.body.description || existingObjective.description,
@@ -59,8 +60,11 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
     };
 
     const result = await objectiveRepository.update(sqlCon, objectiveId, updatedObjective);
-
     return rep.code(200).send(result);
+
+    } catch (error) {
+        return rep.code(500).send({error: 'Internal server error'});
+    }
 }
 
 
