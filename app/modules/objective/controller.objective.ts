@@ -3,6 +3,8 @@ import {objectiveSchema} from "./schemas/objective.schema";
 import * as objectiveRepository from "./repository.objective";
 import {sqlCon} from "../../common/config/kysely-config";
 import {findAllTasks, findById, validateUUID} from "./repository.objective";
+import {optionsSchema} from "./schemas/options.schema";
+import {uuidSchema} from "./schemas/uuid.schema";
 
 
 export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep: FastifyReply) {
@@ -14,21 +16,16 @@ export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep
         return rep.code(401).send({ error: "Unauthorized: Creator ID not found" });
     }
 
-    try {
+
     const objective = {
-        title: req.body.title,
-        description: req.body.description,
-        creatorId, // Используем id из токена
-        notifyAt: req.body.notifyAt,
-        isCompleted: req.body.isCompleted,
+        ...req.body,
+        creatorId
     };
 
     const insertedObjective = await objectiveRepository.insert(sqlCon, objective);
     return rep.code(200).send(insertedObjective);
 
-    } catch (error) {
-        return rep.code(500).send({error: 'Internal server error'});
-    }
+
 }
 
 
@@ -51,7 +48,7 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
     if (existingObjective.creatorId !== creatorId) {
         return rep.code(403).send({ error: "Forbidden: You are not the creator of this objective" });
     }
-    try {
+
     const updatedObjective = {
         title: req.body.title || existingObjective.title,
         description: req.body.description || existingObjective.description,
@@ -62,45 +59,37 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
     const result = await objectiveRepository.update(sqlCon, objectiveId, updatedObjective);
     return rep.code(200).send(result);
 
-    } catch (error) {
-        return rep.code(500).send({error: 'Internal server error'});
-    }
+
 }
 
 
 export async function read(req: FastifyRequest<{ Params: { id: string }, Body: objectiveSchema }>, rep: FastifyReply) {
+    try {
 
-    const objectiveId = req.params.id;
+        const {id: objectiveId} = uuidSchema.parse(req.params);
 
-    if (!validateUUID(objectiveId)) {
-        return rep.code(400).send({ error: 'Invalid UUID format' });
-    }
+        const existingObjective = await objectiveRepository.findById(sqlCon, objectiveId);
 
-    const existingObjective = await objectiveRepository.findById(sqlCon, objectiveId);
-    if (!existingObjective) {
-        return rep.code(404).send({ error: "Objective not found" });
-    }
+        if (!existingObjective) {
+            return rep.code(404).send({error: "Objective not found"});
+        }
+        return rep.code(200).send(existingObjective);
 
-
-    return rep.code(200).send(existingObjective);
+    }catch (error) {
+            return rep.code(500).send({error:"Incorrect format"});
+        }
 }
 
 
-export async function list(req: FastifyRequest<{ Querystring: { search?: string;
-    sortBy?: 'title' | 'createdAt' | 'notifyAt';
-    order?: 'asc' | 'desc';
-    limit?: number;
-    offset?: number;
-    is_completed?: boolean; }; }>, rep: FastifyReply)
+export async function list(req: FastifyRequest<{ Querystring: optionsSchema }>, rep: FastifyReply)
 {
-    try {
         const {
             search,
             sortBy = 'createdAt',
             order = 'asc',
             limit = 10,
             offset = 0,
-            is_completed,
+            isCompleted,
         } = req.query;
 
         
@@ -113,19 +102,15 @@ export async function list(req: FastifyRequest<{ Querystring: { search?: string;
             return rep.code(400).send({ error: 'Invalid order value' });
         }
 
-        // Выполняем запрос к базе данных с фильтрацией, сортировкой и пагинацией
+
         const tasks = await objectiveRepository.findAllTasks(sqlCon, {
             search,
             sortBy,
             order,
             limit,
             offset,
-            is_completed,
+            isCompleted
         });
 
         return rep.code(200).send(tasks);
-    } catch (error) {
-        console.error('Error retrieving tasks:', error);
-        return rep.code(500).send({ error: 'Internal server error' });
-    }
 }

@@ -7,5 +7,5 @@ interface IProvider {
     prefix: string;
 }
 
-export const HttpProvider: IProvider[] = [{ instance: userRouter, prefix: "user" },{ instance: objectiveRouter, prefix: "objective" }];
+export const HttpProvider: IProvider[] = [{ instance: userRouter, prefix: "user" },{ instance: objectiveRouter, prefix: "objective/to-do" }];
 

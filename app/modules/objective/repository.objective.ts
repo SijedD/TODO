@@ -1,5 +1,6 @@
 import { type Insertable, type Kysely, Transaction } from "kysely";
 import { DB, Objectives } from "../../common/types/kysely/db.type";
+import {optionsSchema} from "./schemas/options.schema";
 
 
 type InsertableObjectivesRowType = Insertable<Objectives>;
@@ -8,11 +9,11 @@ export async function insert(con: Kysely<DB> | Transaction<DB>, entity: Insertab
     return await con.insertInto("objectives").returningAll().values(entity).executeTakeFirstOrThrow();
 }
 
-export async function findById(con: any, id: string) {
+export async function findById(con: Kysely<DB> | Transaction<DB>, id: string) {
     return con.selectFrom("objectives").selectAll().where("id", "=", id).executeTakeFirst();
 }
 
-export async function update(con: any, id: string, updatedObjective: any) {
+export async function update(con: Kysely<DB> | Transaction<DB>, id: string, updatedObjective: any) {
     return con.updateTable("objectives").set(updatedObjective).where("id", "=", id)
         .returning(["id", "title", "description", "notifyAt", "isCompleted"])
         .executeTakeFirst();
@@ -23,18 +24,8 @@ export function validateUUID(uuid: string): boolean {
     return uuidRegex.test(uuid);
 }
 
-export async function findAllTasks(
-    db: Kysely<DB> | Transaction<DB>,
-    options: {
-        search?: string;
-        sortBy: string;
-        order: string;
-        limit: number;
-        offset: number;
-        is_completed?: boolean;
-    }
-) {
-    let query = db
+export async function findAllTasks(con: Kysely<DB> | Transaction<DB>, options: optionsSchema) {
+    let query = con
         .selectFrom('objectives')
         .selectAll();
 
@@ -44,8 +35,8 @@ export async function findAllTasks(
     }
 
 
-    if (options.is_completed !== undefined) {
-        query = query.where('is_completed', '=', options.is_completed);
+    if (options.isCompleted !== undefined) {
+        query = query.where('isCompleted', '=', options.isCompleted);
     }
 
 
