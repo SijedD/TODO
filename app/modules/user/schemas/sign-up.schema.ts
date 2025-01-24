@@ -1,5 +1,5 @@
-import type { FastifySchema } from "fastify";
-import { z } from "zod";
+import type { FastifySchema } from 'fastify';
+import { z } from 'zod';
 
 const schema = z.object({
     login: z.string().min(1).max(127).optional(),

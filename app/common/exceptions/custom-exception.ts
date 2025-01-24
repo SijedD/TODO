@@ -10,7 +10,7 @@ export class CustomException extends Error {
         this.error = error;
 
         if (result && result.publicMessage) {
-            if (typeof result.publicMessage === "string") {
+            if (typeof result.publicMessage === 'string') {
                 this.publicMessage = { message: result.publicMessage };
             } else {
                 this.publicMessage = result.publicMessage;

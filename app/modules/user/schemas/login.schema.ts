@@ -1,5 +1,5 @@
-import type { FastifySchema } from "fastify";
-import { z } from "zod";
+import type { FastifySchema } from 'fastify';
+import { z } from 'zod';
 
 const schema = z.object({
     email: z.string().email(),

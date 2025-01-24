@@ -1,7 +1,7 @@
 export enum ValidationErrorType {
-    NOT_UNIQUE = "not_unique",
-    NOT_FOUND = "not_found",
-    NOT_ALLOWED = "not_allowed"
+    NOT_UNIQUE = 'not_unique',
+    NOT_FOUND = 'not_found',
+    NOT_ALLOWED = 'not_allowed'
 }
 
 export enum CustomErrorTypeEnum {
@@ -9,12 +9,12 @@ export enum CustomErrorTypeEnum {
 }
 
 export enum HandlingErrorType {
-    Empty = "empty",
-    Busy = "busy",
-    Lock = "lock",
-    Unique = "not_unique",
-    Found = "not_found",
-    Allowed = "not_allowed",
-    Exists = "not_exists",
-    Match = "not_match"
+    Empty = 'empty',
+    Busy = 'busy',
+    Lock = 'lock',
+    Unique = 'not_unique',
+    Found = 'not_found',
+    Allowed = 'not_allowed',
+    Exists = 'not_exists',
+    Match = 'not_match'
 }

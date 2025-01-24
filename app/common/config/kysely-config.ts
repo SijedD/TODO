@@ -1,11 +1,11 @@
-import type { FastifyInstance, FastifyPluginAsync } from "fastify";
-import fp from "fastify-plugin";
-import { Kysely, ParseJSONResultsPlugin, PostgresDialect, sql } from "kysely";
-import { Pool, types } from "pg";
-import type { DB } from "../types/kysely/db.type";
-import { logger } from "./pino-plugin";
+import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import fp from 'fastify-plugin';
+import { Kysely, ParseJSONResultsPlugin, PostgresDialect, sql } from 'kysely';
+import { Pool, types } from 'pg';
+import type { DB } from '../types/kysely/db.type';
+import { logger } from './pino-plugin';
 
-declare module "fastify" {
+declare module 'fastify' {
     interface FastifyInstance {
         kysely: Kysely<DB>;
     }
@@ -36,37 +36,37 @@ export const KyselyConfig: FastifyPluginAsync = fp(async (fastify: FastifyInstan
             dialect: pgDialect,
             plugins: [new ParseJSONResultsPlugin()],
             log(event) {
-                if (process.env.DB_LOGS === "true" && event.level === "query") {
+                if (process.env.DB_LOGS === 'true' && event.level === 'query') {
                     logger.debug(
                         {
                             durationMs: `${event.queryDurationMillis.toFixed(2)} ms`,
                             sql: event.query.sql
                         },
-                        "[SQL]"
+                        '[SQL]'
                     );
                 }
-                if ((process.env.DB_LOGS === "error" || process.env.DB_LOGS === "debug") && event.level === "error") {
+                if ((process.env.DB_LOGS === 'error' || process.env.DB_LOGS === 'debug') && event.level === 'error') {
                     logger.error(
                         {
                             ...event
                         },
-                        "[SQL]"
+                        '[SQL]'
                     );
                 }
             }
         });
 
         await sql<void>`SELECT 1`.execute(db);
-        logger.info("[Postgres]: connection established");
+        logger.info('[Postgres]: connection established');
 
-        fastify.decorate("kysely", db);
+        fastify.decorate('kysely', db);
         sqlCon = db;
 
-        fastify.addHook("onClose", async () => {
+        fastify.addHook('onClose', async () => {
             await db.destroy();
         });
     } catch (e) {
-        logger.error("[Postgres]: failed to establish database connection. See details:");
+        logger.error('[Postgres]: failed to establish database connection. See details:');
         logger.error(e);
         process.exit(1);
     }

@@ -1,5 +1,5 @@
-import type { FastifySchema } from "fastify";
-import { z } from "zod";
+import type { FastifySchema } from 'fastify';
+import { z } from 'zod';
 
 export const optionsSchema = z.object({
     search: z.string().optional(),
