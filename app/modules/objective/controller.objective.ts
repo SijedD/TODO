@@ -9,7 +9,7 @@ import {uuidSchema} from "./schemas/uuid.schema";
 
 export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep: FastifyReply) {
 
-    req.user = await req.jwtVerify();
+
     const creatorId = req.user?.id;
 
     if (!creatorId) {
@@ -29,25 +29,8 @@ export async function create(req: FastifyRequest<{ Body: objectiveSchema }>, rep
 }
 
 
-export async function update(req: FastifyRequest<{ Params: { id: string }, Body: objectiveSchema }>, rep: FastifyReply) {
-
-    req.user = await req.jwtVerify();
-    const creatorId = req.user?.id;
-
-    if (!creatorId) {
-        return rep.code(401).send({ error: "Unauthorized: Creator ID not found" });
-    }
-
-    const objectiveId = req.params.id;
-
-    const existingObjective = await objectiveRepository.findById(sqlCon, objectiveId);
-    if (!existingObjective) {
-        return rep.code(404).send({ error: "Objective not found" });
-    }
-
-    if (existingObjective.creatorId !== creatorId) {
-        return rep.code(403).send({ error: "Forbidden: You are not the creator of this objective" });
-    }
+export async function update(req: FastifyRequest<{ Params: { id: string }; Body: objectiveSchema }>, rep: FastifyReply) {
+    const existingObjective = req.objective;
 
     const updatedObjective = {
         title: req.body.title || existingObjective.title,
@@ -56,10 +39,8 @@ export async function update(req: FastifyRequest<{ Params: { id: string }, Body:
         isCompleted: req.body.isCompleted ?? existingObjective.isCompleted,
     };
 
-    const result = await objectiveRepository.update(sqlCon, objectiveId, updatedObjective);
+    const result = await objectiveRepository.update(sqlCon, req.params.id, updatedObjective);
     return rep.code(200).send(result);
-
-
 }
 
 
