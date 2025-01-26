@@ -1,11 +1,11 @@
-import type { FastifyInstance } from 'fastify';
-import * as objectiveController from './controller.objective';
-import { objectiveFSchema } from './schemas/objective.schema';
-import { checkObjectiveCreator } from './guards/objective.guard';
+import type { FastifyInstance } from "fastify";
+import * as objectiveController from "./controller.objective";
+import { checkObjectiveCreator } from "./guards/objective.guard";
+import { objectiveFSchema } from "./schemas/objective.schema";
 
 export const objectiveRouter = async (app: FastifyInstance) => {
-    app.post('/', { schema: objectiveFSchema }, objectiveController.create);
-    app.patch('/:id', { schema: objectiveFSchema, preHandler: [checkObjectiveCreator] }, objectiveController.update);
-    app.get('/:id', objectiveController.read);
-    app.get('/', objectiveController.list);
+    app.post("/", { schema: objectiveFSchema }, objectiveController.create);
+    app.patch("/:id", { schema: objectiveFSchema, preHandler: [checkObjectiveCreator] }, objectiveController.update);
+    app.get("/:id", { preHandler: [checkObjectiveCreator] }, objectiveController.read);
+    app.get("/", objectiveController.list);
 };

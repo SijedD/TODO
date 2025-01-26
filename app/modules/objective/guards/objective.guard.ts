@@ -1,21 +1,15 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { validate as isUuid } from "uuid";
 import { sqlCon } from "../../../common/config/kysely-config";
 import * as objectiveRepository from "../repository.objective";
 import { objectiveSchema } from "../schemas/objective.schema";
+import { uuidSchema } from "../schemas/uuid.schema";
+import { AccessDeniedError } from "./accessDeniedError.guard";
 
-declare module "fastify" {
-    interface FastifyRequest {
-        objective?: typeof objectiveSchema;
-    }
-}
-
-export const checkObjectiveCreator = async (req: FastifyRequest<{ Params: { id: string }; Body: objectiveSchema }>, rep: FastifyReply) => {
+export const checkObjectiveCreator = async (req: FastifyRequest<{ Params: { id: string }; Body: typeof objectiveSchema }>, rep: FastifyReply) => {
     const creatorId = req.user?.id;
-
     const objectiveId = req.params.id;
 
-    if (!isUuid(objectiveId)) {
+    if (!uuidSchema.safeParse({ id: objectiveId }).success) {
         return rep.code(400).send({ error: "Invalid Objective ID format" });
     }
 
@@ -26,8 +20,10 @@ export const checkObjectiveCreator = async (req: FastifyRequest<{ Params: { id: 
     }
 
     if (existingObjective.creatorId !== creatorId) {
-        return rep.code(403).send({ error: "Forbidden: You are not the creator of this objective" });
+        throw new AccessDeniedError();
     }
 
-    req.objective = existingObjective;
+    (req as any).objective = existingObjective;
+
+    return;
 };
