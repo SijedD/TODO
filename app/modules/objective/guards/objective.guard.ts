@@ -1,11 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { sqlCon } from "../../../common/config/kysely-config";
 import * as objectiveRepository from "../repository.objective";
-import { objectiveSchema } from "../schemas/objective.schema";
+import { updateObjectiveSchema } from "../schemas/updateObjective.schema";
 import { uuidSchema } from "../schemas/uuid.schema";
 import { AccessDeniedError } from "./accessDeniedError.guard";
 
-export const checkObjectiveCreator = async (req: FastifyRequest<{ Params: { id: string }; Body: typeof objectiveSchema }>, rep: FastifyReply) => {
+export const checkObjectiveCreator = async (req: FastifyRequest<{ Params: { id: string }; Body: typeof updateObjectiveSchema }>, rep: FastifyReply) => {
     const creatorId = req.user?.id;
     const objectiveId = req.params.id;
 
