@@ -32,7 +32,14 @@ export interface Objectives {
   isCompleted: Generated<boolean>;
 }
 
+export interface Objective_access{
+  id: Generated<string>;
+  objective_id:string;
+  user_id:string;
+}
+
 export interface DB {
   objectives: Objectives;
   users: Users;
+  objective_access: Objective_access;
 }
