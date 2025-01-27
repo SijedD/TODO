@@ -39,3 +39,11 @@ export async function list(req: FastifyRequest<{ Querystring: getOptionsSchema }
 
     return rep.code(200).send(tasks);
 }
+
+export async function deleteObjective(req: FastifyRequest<{ Params: { id: string } }>, rep: FastifyReply) {
+    const objectiveId = req.params.id;
+
+    await objectiveRepository.deleteObjective(sqlCon, objectiveId);
+
+    return rep.code(200).send({ message: "Objective successfully deleted" });
+}

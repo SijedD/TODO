@@ -43,3 +43,7 @@ export async function findAllTasks(con: Kysely<DB> | Transaction<DB>, options: g
     const tasks = await query.execute();
     return tasks;
 }
+
+export async function deleteObjective(con: Kysely<DB> | Transaction<DB>, id: string) {
+    await con.deleteFrom("objectives").where("id", "=", id).execute();
+}
