@@ -1,7 +1,6 @@
-import { type Insertable, type Kysely, Transaction } from "kysely";
+import { type Insertable, type Kysely, Transaction, Updateable } from "kysely";
 import { DB, Objectives } from "../../common/types/kysely/db.type";
 import { getOptionsSchema } from "./schemas/getOptions.schema";
-import { updateObjectiveSchema } from "./schemas/updateObjective.schema";
 
 type InsertableObjectivesRowType = Insertable<Objectives>;
 
@@ -13,11 +12,11 @@ export async function findById(con: Kysely<DB> | Transaction<DB>, id: string) {
     return con.selectFrom("objectives").selectAll().where("id", "=", id).executeTakeFirst();
 }
 
-export async function update(con: Kysely<DB> | Transaction<DB>, id: string, updatedObjective: updateObjectiveSchema) {
+export async function update(con: Kysely<DB> | Transaction<DB>, id: string, entity: Updateable<Objectives>) {
     return await con
         .updateTable("objectives")
         .returningAll()
-        .set({ ...updatedObjective, updatedAt: `now()` })
+        .set({ ...entity, updatedAt: `now()` })
         .where("id", "=", id)
         .executeTakeFirst();
 }

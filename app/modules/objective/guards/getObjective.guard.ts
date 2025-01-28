@@ -1,9 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { sqlCon } from "../../../common/config/kysely-config";
 import { AccessDeniedError } from "../../../common/exceptions/accessDeniedError.guard";
+import * as objectiveAccessRepository from "../../objective_access/repository.objectiveAccess";
 import * as objectiveRepository from "../repository.objective";
 
-export const checkObjective = async (req: FastifyRequest<{ Params: { id: string } }>, rep: FastifyReply) => {
+export const getCheckObjective = async (req: FastifyRequest<{ Params: { id: string } }>, rep: FastifyReply) => {
     const creatorId = req.user?.id;
     const objectiveId = req.params.id;
 
@@ -14,7 +15,11 @@ export const checkObjective = async (req: FastifyRequest<{ Params: { id: string 
     }
 
     if (existingObjective.creatorId !== creatorId) {
-        throw new AccessDeniedError();
+        const userId = req.user?.id;
+        const accessRecord = await objectiveAccessRepository.findAccessRecord(sqlCon, objectiveId, userId);
+        if (!accessRecord) {
+            throw new AccessDeniedError();
+        }
     }
 
     return;

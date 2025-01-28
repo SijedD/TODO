@@ -7,7 +7,7 @@ import { updateObjectiveSchema } from "./schemas/updateObjective.schema";
 import { uuidSchema } from "./schemas/uuid.schema";
 
 export async function create(req: FastifyRequest<{ Body: createObjectiveSchema }>, rep: FastifyReply) {
-    const creatorId = req.user?.id;
+    const creatorId = req.user.id;
 
     const objective = {
         ...req.body,
@@ -28,9 +28,6 @@ export async function read(req: FastifyRequest<{ Params: { id: string } }>, rep:
 
     const existingObjective = await objectiveRepository.findById(sqlCon, objectiveId);
 
-    if (!existingObjective) {
-        return rep.code(404).send({ error: "Objective not found" });
-    }
     return rep.code(200).send(existingObjective);
 }
 
