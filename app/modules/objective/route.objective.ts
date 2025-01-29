@@ -7,8 +7,8 @@ import { updateObjectiveFSchema } from "./schemas/updateObjective.schema";
 
 export const objectiveRouter = async (app: FastifyInstance) => {
     app.post("/", { schema: createObjectiveFSchema }, objectiveController.create);
-    app.patch("/:id", { schema: updateObjectiveFSchema, preHandler: [checkObjective] }, objectiveController.update);
-    app.get("/:id", { preHandler: [getCheckObjective] }, objectiveController.read);
+    app.patch("/:id", { schema: updateObjectiveFSchema, preHandler: app.auth([checkObjective]) }, objectiveController.update);
+    app.get("/:id", { preHandler: app.auth([getCheckObjective]) }, objectiveController.read);
     app.get("/", objectiveController.list);
-    app.delete("/:id", { preHandler: [checkObjective] }, objectiveController.deleteObjective);
+    app.delete("/:id", { preHandler: app.auth([checkObjective]) }, objectiveController.deleteObjective);
 };
