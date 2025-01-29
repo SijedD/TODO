@@ -31,6 +31,11 @@ export async function objectiveRevoke(req: FastifyRequest<{ Params: { id: string
     const { id: objectiveId } = req.params;
     const { user_id: userId } = req.body;
 
+    const exists = await objectiveAccessRepository.accessExists(sqlCon, objectiveId, userId);
+    if (!exists) {
+        return rep.code(404).send({ error: "Access not found or already revoked." });
+    }
+
     await objectiveAccessRepository.revokeAccess(sqlCon, objectiveId, userId);
     return rep.code(200).send({ message: "Access successfully revoked." });
 }
