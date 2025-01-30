@@ -21,7 +21,7 @@ export async function objectiveShare(req: FastifyRequest<{ Params: { id: string 
     await req.server.mailer.sendMail({
         to: user.email,
         subject: `User Objective Share`,
-        text: `User has shared objective with you! Objective: ${objectiveId}`
+        text: `User has shared objective: ${objectiveId}`
     });
 
     return rep.code(201).send({ message: "Access granted successfully." });
