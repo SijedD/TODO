@@ -1,0 +1,661 @@
+{
+	"info": {
+		"_postman_id": "0de467d5-ed9f-43e8-a93a-6c03720c1737",
+		"name": "TODO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31004081"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "Sign-up",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "secret",
+									"value": "1231234344",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"Danil\",\r\n    \"name\":\"danil\",\r\n    \"email\":\"2Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/user/sign-up",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"user",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "secret",
+									"value": "1231234344",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"2Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/user/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OBJECTIVE",
+			"item": [
+				{
+					"name": "Add objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczNzg3OTU2OSwiZXhwIjoxNzM4NDg0MzY5fQ.hkysj-S7zq_qEASZ6Ed3D9mE6fCvQB9-1Tr6JoO1jUU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"proverca\",\r\n    \"description\": \"schema\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"dani31l\",\r\n    \"description\": \"sdel123al api\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\",\r\n    \"isCompleted\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "d65c8bc8-bd82-4e80-86b8-bff19d23436c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read objective UUID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1d65c8bc8-bd82-4e80-86b8-bff19d23436c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do?search=dadad",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "dadad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do?sortBy=title",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pogination objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do?limit=2&offset=0",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "isCompleted objective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do?isСompleted=true",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do"
+							],
+							"query": [
+								{
+									"key": "isСompleted",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Objectives",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM4MDQ2ODA2LCJleHAiOjE3Mzg2NTE2MDZ9.BonKRwKyo_5ixhCKDbT5yiqGXr8l1hGhW_J1vodHlKY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"objective",
+								"to-do",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c85741fb-b199-4b54-96f6-bee0dba90ce7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SHARE OBJECTIVE",
+			"item": [
+				{
+					"name": "ObjectiveShare",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiRGFuaWxjYXJvbDU2QGdtYWlsLmNvbSIsImlhdCI6MTczODEzOTE0MiwiZXhwIjoxNzM4NzQzOTQyfQ.Q7cRedg6mvDWzOisofN_UKRfCs86Ijv8sidqgLF7CFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":\"f5807414-3618-4984-9174-b8d58535fa59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/to-do/:id/share",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"to-do",
+								":id",
+								"share"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ef8a164b-1b9d-4992-b759-85f8282c692c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objective revoke",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczODA0NjcwOSwiZXhwIjoxNzM4NjUxNTA5fQ.O_XtiS3CRVYYvHZu_yaK8ESwvd0cL4rcS-w6-ydXLZs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":\"f5807414-3618-4984-9174-b8d58535fa59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5433/to-do/:id/revoke",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"to-do",
+								":id",
+								"revoke"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ef8a164b-1b9d-4992-b759-85f8282c692c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObjectiveListGrants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM4MDQ2ODA2LCJleHAiOjE3Mzg2NTE2MDZ9.BonKRwKyo_5ixhCKDbT5yiqGXr8l1hGhW_J1vodHlKY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5433/to-do/:id/list-grants",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5433",
+							"path": [
+								"to-do",
+								":id",
+								"list-grants"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "249f5f33-3ca8-4f8d-bc1d-9465d6c07cfe"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
