@@ -1,5 +1,6 @@
 import type { FastifySchema } from "fastify";
 import { z } from "zod";
+import { uuidFSchema } from "./uuid.schema";
 
 const schema = z.object({
     title: z.string().min(1).max(127),
@@ -9,4 +10,4 @@ const schema = z.object({
 });
 
 export type updateObjectiveSchema = z.infer<typeof schema>;
-export const updateObjectiveFSchema: FastifySchema = { body: schema };
+export const updateObjectiveFSchema: FastifySchema = { params: uuidFSchema.params, body: schema };

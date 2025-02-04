@@ -1,20 +1,21 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { sqlCon } from "../../common/config/kysely-config";
+import { HttpStatusCode } from "../../common/enum/http-status-code";
+import { CustomException } from "../../common/exceptions/custom-exception";
 import * as objectiveAccessRepository from "../objective_access/repository.objectiveAccess";
-export async function objectiveShare(req: FastifyRequest<{ Params: { id: string }; Body: { user_id: string } }>, rep: FastifyReply) {
+export async function objectiveShare(req: FastifyRequest<{ Params: { id: string }; Body: { userId: string } }>, rep: FastifyReply) {
     const { id: objectiveId } = req.params;
-    const { user_id: userId } = req.body;
+    const { userId } = req.body;
 
     const exists = await objectiveAccessRepository.accessExists(sqlCon, objectiveId, userId);
     if (exists) {
-        return rep.code(400).send({ error: "Access already granted." });
-    }
-    const user = await objectiveAccessRepository.getUserById(sqlCon, userId);
-    if (!user || !user.email) {
-        return rep.code(404).send({ error: "User not found or has no email." });
+        throw new CustomException(HttpStatusCode.CONFLICT, "Access already granted.", { publicMessage: "Access already granted." });
     }
 
-    const users = await objectiveAccessRepository.getUserById(sqlCon, userId);
+    const user = await objectiveAccessRepository.getUserById(sqlCon, userId);
+    if (!user || !user.email) {
+        throw new CustomException(HttpStatusCode.CONFLICT, "User not found or has no email.", { publicMessage: "User not found or has no email." });
+    }
 
     await objectiveAccessRepository.insertAccess(sqlCon, objectiveId, userId);
 
@@ -24,20 +25,20 @@ export async function objectiveShare(req: FastifyRequest<{ Params: { id: string 
         text: `User has shared objective: ${objectiveId}`
     });
 
-    return rep.code(201).send({ message: "Access granted successfully." });
+    return rep.code(HttpStatusCode.OK).send({ message: "Access granted successfully." });
 }
 
-export async function objectiveRevoke(req: FastifyRequest<{ Params: { id: string }; Body: { user_id: string } }>, rep: FastifyReply) {
+export async function objectiveRevoke(req: FastifyRequest<{ Params: { id: string }; Body: { userId: string } }>, rep: FastifyReply) {
     const { id: objectiveId } = req.params;
-    const { user_id: userId } = req.body;
+    const { userId } = req.body; // заменено user_id на userId
 
     const exists = await objectiveAccessRepository.accessExists(sqlCon, objectiveId, userId);
     if (!exists) {
-        return rep.code(404).send({ error: "Access not found or already revoked." });
+        throw new CustomException(HttpStatusCode.CONFLICT, "Access not found or already revoked.", { publicMessage: "Access not found or already revoked." });
     }
 
     await objectiveAccessRepository.revokeAccess(sqlCon, objectiveId, userId);
-    return rep.code(200).send({ message: "Access successfully revoked." });
+    return rep.code(HttpStatusCode.OK).send({ message: "Access successfully revoked." });
 }
 
 export async function objectiveListGrants(req: FastifyRequest<{ Params: { id: string } }>, rep: FastifyReply) {
@@ -45,5 +46,5 @@ export async function objectiveListGrants(req: FastifyRequest<{ Params: { id: st
 
     const users = await objectiveAccessRepository.getAccessList(sqlCon, objectiveId);
 
-    return rep.code(200).send({ users });
+    return rep.code(HttpStatusCode.OK).send({ users });
 }

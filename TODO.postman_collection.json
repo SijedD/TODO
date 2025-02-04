@@ -61,7 +61,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"Danil\",\r\n    \"name\":\"danil\",\r\n    \"email\":\"2Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
+							"raw": "{\r\n    \"login\":\"Danil\",\r\n    \"name\":\"danil\",\r\n    \"email\":\"23Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -144,7 +144,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"2Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
+							"raw": "{\r\n    \"email\":\"23Danil123@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,7 +182,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczNzg3OTU2OSwiZXhwIjoxNzM4NDg0MzY5fQ.hkysj-S7zq_qEASZ6Ed3D9mE6fCvQB9-1Tr6JoO1jUU",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -198,7 +198,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"proverca\",\r\n    \"description\": \"schema\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\"\r\n}",
+							"raw": "{\r\n    \"title\": \"provercaemail\",\r\n    \"description\": \"schema\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,7 +206,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do",
+							"raw": "http://127.0.0.1:5433/to-do",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -216,7 +216,6 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do"
 							]
 						}
@@ -231,7 +230,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -240,7 +239,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"dani31l\",\r\n    \"description\": \"sdel123al api\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\",\r\n    \"isCompleted\": true\r\n}",
+							"raw": "{\r\n    \"title\": \"proverca 2.0\",\r\n    \"description\": \"schema2\",\r\n    \"notifyAt\": \"2025-01-21T15:30:00Z\",\r\n    \"isCompleted\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,7 +247,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"raw": "http://127.0.0.1:5433/to-do/:id",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -258,14 +257,13 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "d65c8bc8-bd82-4e80-86b8-bff19d23436c"
+									"value": "58709fb4-69e6-4217-b11c-bcf6306aad09"
 								}
 							]
 						}
@@ -280,7 +278,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -288,7 +286,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"raw": "http://127.0.0.1:5433/to-do/:id",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -298,14 +296,13 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "1d65c8bc8-bd82-4e80-86b8-bff19d23436c"
+									"value": "58709fb4-69e6-4217-b11c-bcf6306aad09"
 								}
 							]
 						}
@@ -320,7 +317,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -328,7 +325,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do?search=dadad",
+							"raw": "http://127.0.0.1:5433/to-do?search=proverca 2.0",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -338,13 +335,12 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do"
 							],
 							"query": [
 								{
 									"key": "search",
-									"value": "dadad"
+									"value": "proverca 2.0"
 								}
 							]
 						}
@@ -359,7 +355,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -367,7 +363,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do?sortBy=title",
+							"raw": "http://127.0.0.1:5433/to-do?sortBy=title",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -377,7 +373,6 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do"
 							],
 							"query": [
@@ -398,7 +393,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -406,7 +401,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do?limit=2&offset=0",
+							"raw": "http://127.0.0.1:5433/to-do?limit=2&offset=1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -416,7 +411,6 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do"
 							],
 							"query": [
@@ -426,7 +420,7 @@
 								},
 								{
 									"key": "offset",
-									"value": "0"
+									"value": "1"
 								}
 							]
 						}
@@ -441,7 +435,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM3NDQxNDk4LCJleHAiOjE3MzgwNDYyOTh9.klp8xAMvRORRbz-uhmtcuZStXVnlNPj5IlIpM6taaAE",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -449,7 +443,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do?isСompleted=true",
+							"raw": "http://127.0.0.1:5433/to-do?isCompleted=true",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -459,12 +453,11 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do"
 							],
 							"query": [
 								{
-									"key": "isСompleted",
+									"key": "isCompleted",
 									"value": "true"
 								}
 							]
@@ -480,7 +473,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM4MDQ2ODA2LCJleHAiOjE3Mzg2NTE2MDZ9.BonKRwKyo_5ixhCKDbT5yiqGXr8l1hGhW_J1vodHlKY",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -488,7 +481,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5433/objective/to-do/:id",
+							"raw": "http://127.0.0.1:5433/to-do/:id",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -498,14 +491,13 @@
 							],
 							"port": "5433",
 							"path": [
-								"objective",
 								"to-do",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "c85741fb-b199-4b54-96f6-bee0dba90ce7"
+									"value": "58709fb4-69e6-4217-b11c-bcf6306aad09"
 								}
 							]
 						}
@@ -525,7 +517,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiRGFuaWxjYXJvbDU2QGdtYWlsLmNvbSIsImlhdCI6MTczODEzOTE0MiwiZXhwIjoxNzM4NzQzOTQyfQ.Q7cRedg6mvDWzOisofN_UKRfCs86Ijv8sidqgLF7CFE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNGFiZGVlLWYwMDYtNDdhOC05NDI0LTQ4ZGRmMTllY2VhMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczODY1NDY0OSwiZXhwIjoxNzM5MjU5NDQ5fQ.lskEKYHO2EGLJ2ikjBb9qqSEeXRIZG-gMg_MX4K-Y34",
 									"type": "string"
 								}
 							]
@@ -534,7 +526,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\":\"f5807414-3618-4984-9174-b8d58535fa59\"\r\n}",
+							"raw": "{\r\n    \"userId\":\"fc73bee9-0138-484a-bf8b-67654901e9cf\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -559,7 +551,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "ef8a164b-1b9d-4992-b759-85f8282c692c"
+									"value": "89f606d0-39df-41cb-9088-c95ed2568eea"
 								}
 							]
 						}
@@ -574,7 +566,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNWQ0OWJjLTIyNjQtNGE5MS04MWJkLTg5OWNhNjMwNzVkMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczODA0NjcwOSwiZXhwIjoxNzM4NjUxNTA5fQ.O_XtiS3CRVYYvHZu_yaK8ESwvd0cL4rcS-w6-ydXLZs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNGFiZGVlLWYwMDYtNDdhOC05NDI0LTQ4ZGRmMTllY2VhMCIsImVtYWlsIjoiMkRhbmlsMTIzQGdtYWlsLmNvbSIsImlhdCI6MTczODY1NDY0OSwiZXhwIjoxNzM5MjU5NDQ5fQ.lskEKYHO2EGLJ2ikjBb9qqSEeXRIZG-gMg_MX4K-Y34",
 									"type": "string"
 								}
 							]
@@ -583,7 +575,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\":\"f5807414-3618-4984-9174-b8d58535fa59\"\r\n}",
+							"raw": "{\r\n    \"userId\":\"fc73bee9-0138-484a-bf8b-67654901e9cf\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -608,7 +600,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "ef8a164b-1b9d-4992-b759-85f8282c692c"
+									"value": "89f606d0-39df-41cb-9088-c95ed2568eea"
 								}
 							]
 						}
@@ -623,7 +615,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY1ODA3NDE0LTM2MTgtNDk4NC05MTc0LWI4ZDU4NTM1ZmE1OSIsImVtYWlsIjoiRGFuaWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzM4MDQ2ODA2LCJleHAiOjE3Mzg2NTE2MDZ9.BonKRwKyo_5ixhCKDbT5yiqGXr8l1hGhW_J1vodHlKY",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -648,7 +640,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "249f5f33-3ca8-4f8d-bc1d-9465d6c07cfe"
+									"value": "89f606d0-39df-41cb-9088-c95ed2568eea"
 								}
 							]
 						}

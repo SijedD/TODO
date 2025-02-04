@@ -22,9 +22,6 @@ export async function update(con: Kysely<DB> | Transaction<DB>, id: string, enti
 }
 
 export async function findAllTasks(con: Kysely<DB> | Transaction<DB>, options: getOptionsSchema) {
-    const sortBy = options.sortBy ?? "createdAt";
-    const order = options.order ?? "asc";
-
     let query = con.selectFrom("objectives").selectAll();
 
     if (options.search) {
@@ -32,15 +29,14 @@ export async function findAllTasks(con: Kysely<DB> | Transaction<DB>, options: g
     }
 
     if (options.isCompleted !== undefined) {
-        query = query.where("isCompleted", "=", options.isCompleted);
+        query = query.where("objectives.isCompleted", "=", options.isCompleted);
     }
 
-    query = query.orderBy(sortBy, order);
+    query = query.orderBy(options.sortBy, options.order);
 
-    query = query.limit(options.limit ?? 10).offset(options.offset ?? 0);
+    query = query.limit(options.limit).offset(options.offset);
 
-    const tasks = await query.execute();
-    return tasks;
+    return await query.execute();
 }
 
 export async function deleteObjective(con: Kysely<DB> | Transaction<DB>, id: string) {

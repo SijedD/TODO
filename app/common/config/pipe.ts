@@ -1,8 +1,9 @@
-import { errorCodes, type FastifyError, type FastifyReply, type FastifyRequest } from 'fastify';
-import { z, ZodError, ZodObject } from 'zod';
-import { HttpStatusCode } from '../enum/http-status-code';
-import { CustomException } from '../exceptions/custom-exception';
-import { logger } from './pino-plugin';
+import { errorCodes, type FastifyError, type FastifyReply, type FastifyRequest } from "fastify";
+import { z, ZodError, ZodObject } from "zod";
+import { HttpStatusCode } from "../enum/http-status-code";
+import { AccessDeniedError } from "../exceptions/accessDeniedError.guard";
+import { CustomException } from "../exceptions/custom-exception";
+import { logger } from "./pino-plugin";
 
 export async function AppErrorPipe(err: any, req: FastifyRequest, reply: FastifyReply) {
     const parentLogger = logger.child({ req_id: req.id });
@@ -12,15 +13,15 @@ export async function AppErrorPipe(err: any, req: FastifyRequest, reply: Fastify
     }
 
     if (err instanceof CustomException) {
-        parentLogger.error({ url: req.url, method: req.method }, 'Route');
+        parentLogger.error({ url: req.url, method: req.method }, "Route");
 
-        if (req.body) parentLogger.error(req.body, 'Body: ');
+        if (req.body) parentLogger.error(req.body, "Body: ");
 
-        if (req.query && Object.keys(req.query).length !== 0) parentLogger.error(req.query, 'Query');
+        if (req.query && Object.keys(req.query).length !== 0) parentLogger.error(req.query, "Query");
 
-        if (req.params && Object.keys(req.params).length !== 0) parentLogger.error(req.params, 'Params');
+        if (req.params && Object.keys(req.params).length !== 0) parentLogger.error(req.params, "Params");
 
-        parentLogger.error(err, 'Handled error');
+        parentLogger.error(err, "Handled error");
 
         reply.code(err.status);
         if (err.publicMessage !== undefined) {
@@ -30,23 +31,36 @@ export async function AppErrorPipe(err: any, req: FastifyRequest, reply: Fastify
         return;
     }
 
-    if ((err['statusCode'] !== undefined && err['statusCode'] === HttpStatusCode.INTERNAL_SERVER_ERROR) || err['statusCode'] === undefined) {
-        parentLogger.error({ url: req.url, originalUrl: req.originalUrl, method: req.method }, 'Route');
+    if (err instanceof AccessDeniedError) {
+        parentLogger.error({ url: req.url, method: req.method }, "Route");
 
-        if (req.body) parentLogger.error(req.body, 'Body');
+        if (req.body) parentLogger.error(req.body, "Body: ");
+        if (req.query && Object.keys(req.query).length !== 0) parentLogger.error(req.query, "Query");
+        if (req.params && Object.keys(req.params).length !== 0) parentLogger.error(req.params, "Params");
 
-        if (req.query && Object.keys(req.query).length !== 0) parentLogger.error(req.query, 'Query');
+        parentLogger.error(err, "Access Denied Error");
 
-        if (req.params && Object.keys(req.params).length !== 0) parentLogger.error(req.params, 'Params');
-
-        parentLogger.error(err, 'Handled error');
-
-        reply.code(HttpStatusCode.INTERNAL_SERVER_ERROR);
-        return { message: 'Oops, something went wrong' };
+        reply.code(HttpStatusCode.FORBIDDEN).send({ message: err.message });
+        return;
     }
 
-    reply.code(err['statusCode']);
-    return { message: err['message'] };
+    if ((err["statusCode"] !== undefined && err["statusCode"] === HttpStatusCode.INTERNAL_SERVER_ERROR) || err["statusCode"] === undefined) {
+        parentLogger.error({ url: req.url, originalUrl: req.originalUrl, method: req.method }, "Route");
+
+        if (req.body) parentLogger.error(req.body, "Body");
+
+        if (req.query && Object.keys(req.query).length !== 0) parentLogger.error(req.query, "Query");
+
+        if (req.params && Object.keys(req.params).length !== 0) parentLogger.error(req.params, "Params");
+
+        parentLogger.error(err, "Handled error");
+
+        reply.code(HttpStatusCode.INTERNAL_SERVER_ERROR);
+        return { message: "Oops, something went wrong" };
+    }
+
+    reply.code(err["statusCode"]);
+    return { message: err["message"] };
 }
 
 export const ZodValidatorCompiler = ({ schema }: { schema: ZodObject<any> }) => {
