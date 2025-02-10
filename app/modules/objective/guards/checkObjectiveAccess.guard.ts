@@ -5,7 +5,7 @@ import * as objectiveAccessRepository from "../../objective_access/repository.ob
 
 export const checkObjectiveAccess = async (req: FastifyRequest<{ Params: { id: string } }>) => {
     const objectiveId = req.params.id;
-    const userId = req.user.id;
+    const userId = req.user.id!;
 
     const accessRecord = await objectiveAccessRepository.findAccessRecord(sqlCon, objectiveId, userId);
     if (!accessRecord) {

@@ -3,6 +3,7 @@ import { sqlCon } from "../../common/config/kysely-config";
 import { HttpStatusCode } from "../../common/enum/http-status-code";
 import * as objectiveRepository from "./repository.objective";
 import { createObjectiveSchema } from "./schemas/createObjective.schema";
+import { getOptionsSchema } from "./schemas/getOptions.schema";
 import { updateObjectiveSchema } from "./schemas/updateObjective.schema";
 import { uuidSchema } from "./schemas/uuid.schema";
 
@@ -29,7 +30,7 @@ export async function read(req: FastifyRequest<{ Params: { id: string } }>, rep:
     return rep.code(HttpStatusCode.OK).send(existingObjective);
 }
 
-export async function list(req: FastifyRequest, rep: FastifyReply) {
+export async function list(req: FastifyRequest<{ Querystring: getOptionsSchema }>, rep: FastifyReply) {
     const tasks = await objectiveRepository.findAllTasks(sqlCon, req.query);
     return rep.code(HttpStatusCode.OK).send(tasks);
 }
