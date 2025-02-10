@@ -13,10 +13,10 @@ export const checkObjective = async (req: FastifyRequest<{ Params: { id: string 
 
     if (!existingObjective) {
         throw new CustomException(HttpStatusCode.CONFLICT, "Objective not found", { publicMessage: "Objective not found" });
-    }
-
-    if (existingObjective.creatorId !== creatorId) {
-        throw new AccessDeniedError();
+    } else {
+        if (existingObjective.creatorId !== creatorId) {
+            throw new AccessDeniedError();
+        }
     }
 
     return;

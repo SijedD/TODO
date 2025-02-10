@@ -15,4 +15,4 @@ export const getOptionsSchema = z.object({
 });
 
 export type getOptionsSchema = z.infer<typeof getOptionsSchema>;
-export const getOptionsFSchema: FastifySchema = { params: getOptionsSchema };
+export const getOptionsFSchema: FastifySchema = { querystring: getOptionsSchema };
